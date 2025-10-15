@@ -1,6 +1,6 @@
 package calculator.parser;
 
-public class InputTextParser {
+public class CustomDelimiterParser {
 
     public static String parse(String expression) {
         validate(expression);

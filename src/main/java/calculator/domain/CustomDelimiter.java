@@ -1,6 +1,6 @@
 package calculator.domain;
 
-import static calculator.parser.InputTextParser.parse;
+import static calculator.parser.CustomDelimiterParser.parse;
 
 public class CustomDelimiter {
     private final String customDelimiter;
