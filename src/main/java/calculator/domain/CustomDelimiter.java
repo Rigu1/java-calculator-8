@@ -1,23 +1,35 @@
 package calculator.domain;
 
-import static calculator.parser.CustomDelimiterParser.parse;
-
 public class CustomDelimiter {
     private final String customDelimiter;
 
-    public CustomDelimiter(String inputText) {
-        String customDelimiter = parse(inputText);
-        validate(customDelimiter);
+    public CustomDelimiter(String customDelimiter) {
         this.customDelimiter = customDelimiter;
+    }
+
+    public static CustomDelimiter from(String headerOfCustomDelimiter) {
+        validateHeader(headerOfCustomDelimiter);
+        String customDelimiter = headerOfCustomDelimiter.substring(2, headerOfCustomDelimiter.indexOf("\\n"));
+        validateCustomDelimiter(customDelimiter);
+        return new CustomDelimiter(customDelimiter);
     }
 
     public String getCustomDelimiter() {
         return customDelimiter;
     }
 
-    private void validate(String customDelimiter) {
+    private static void validateHeader(String headerOfCustomDelimiter) {
+        if (headerOfCustomDelimiter.indexOf("\\n") != 3) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private static void validateCustomDelimiter(String customDelimiter) {
         if (customDelimiter.equals(",") || customDelimiter.equals(":")) {
             throw new IllegalArgumentException();
         }
     }
+
+
 }
+

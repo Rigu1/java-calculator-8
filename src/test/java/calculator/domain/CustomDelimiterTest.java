@@ -13,7 +13,7 @@ public class CustomDelimiterTest {
     void 커스텀_구분자_추출하기() {
         String headerOfCustomDelimiter = "//;\\n";
 
-        CustomDelimiter customDelimiter = new CustomDelimiter(headerOfCustomDelimiter);
+        CustomDelimiter customDelimiter = CustomDelimiter.from(headerOfCustomDelimiter);
 
         assertThat(customDelimiter.getCustomDelimiter()).isEqualTo(";");
     }
@@ -21,14 +21,14 @@ public class CustomDelimiterTest {
     @ParameterizedTest
     @ValueSource(strings = {"//;n", "//[", "///;\\n", "//a\\\\n", "//\\n1"})
     void 정해진_포맷이_아니라면_예외_발생(String headerOfCustomDelimiter) {
-        assertThatThrownBy(() -> new CustomDelimiter(headerOfCustomDelimiter))
+        assertThatThrownBy(() -> CustomDelimiter.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"//,\\n", "//:\\n"})
     void 기본_구분자와_중복된다면_예외_발생(String headerOfCustomDelimiter) {
-        assertThatThrownBy(() -> new CustomDelimiter(headerOfCustomDelimiter))
+        assertThatThrownBy(() -> CustomDelimiter.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
