@@ -2,17 +2,17 @@ package calculator.parser;
 
 public class CustomDelimiterParser {
 
-    public static String parse(String expression) {
-        validate(expression);
-        return expression.substring(2, expression.indexOf("\\n"));
+    public static String parse(String headerOfCustomDelimiter) {
+        validate(headerOfCustomDelimiter);
+        return headerOfCustomDelimiter.substring(2, headerOfCustomDelimiter.indexOf("\\n"));
     }
 
-    private static void validate(String expression) {
-        if (!expression.startsWith("//")) {
+    private static void validate(String headerOfCustomDelimiter) {
+        if (!headerOfCustomDelimiter.startsWith("//")) {
             throw new IllegalArgumentException();
         }
 
-        if (expression.indexOf("\\n") != 3) {
+        if (headerOfCustomDelimiter.indexOf("\\n") != 3) {
             throw new IllegalArgumentException();
         }
     }

@@ -11,24 +11,24 @@ public class CustomDelimiterTest {
 
     @Test
     void 커스텀_구분자_추출하기() {
-        String inputText = "//;\\n1;2";
+        String headerOfCustomDelimiter = "//;\\n";
 
-        CustomDelimiter customDelimiter = new CustomDelimiter(inputText);
+        CustomDelimiter customDelimiter = new CustomDelimiter(headerOfCustomDelimiter);
 
         assertThat(customDelimiter.getCustomDelimiter()).isEqualTo(";");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"//;n1;2", "//;1;2", "///;\\n1", "//a\\\\n2", "//\\n1;2"})
-    void 정해진_포맷이_아니라면_예외_발생(String inputText) {
-        assertThatThrownBy(() -> new CustomDelimiter(inputText))
+    @ValueSource(strings = {"//;n", "//[", "///;\\n", "//a\\\\n", "//\\n1"})
+    void 정해진_포맷이_아니라면_예외_발생(String headerOfCustomDelimiter) {
+        assertThatThrownBy(() -> new CustomDelimiter(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"//,\\n1:2", "//:\\n1:2"})
-    void 기본_구분자와_중복된다면_예외_발생(String inputText) {
-        assertThatThrownBy(() -> new CustomDelimiter(inputText))
+    @ValueSource(strings = {"//,\\n", "//:\\n"})
+    void 기본_구분자와_중복된다면_예외_발생(String headerOfCustomDelimiter) {
+        assertThatThrownBy(() -> new CustomDelimiter(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
