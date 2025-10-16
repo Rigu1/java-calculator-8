@@ -11,7 +11,10 @@ public class InputSplitter {
 
     public static InputSplitter from(String inputText) {
         if (inputText.startsWith("//")) {
-            return new InputSplitter(inputText.substring(0, 5),  inputText.substring(5));
+            int suffixIndex = inputText.indexOf("\\n");
+            validateSuffixIndex(suffixIndex);
+
+            return new InputSplitter(inputText.substring(0, suffixIndex + 2),  inputText.substring(suffixIndex + 2));
         }
         return new InputSplitter(null, inputText);
     }
@@ -24,4 +27,9 @@ public class InputSplitter {
         return expression;
     }
 
+    private static void validateSuffixIndex(int suffixIndex) {
+        if (suffixIndex < 0) {
+            throw new IllegalArgumentException();
+        }
+    }
 }

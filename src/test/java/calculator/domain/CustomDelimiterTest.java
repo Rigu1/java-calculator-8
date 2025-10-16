@@ -19,7 +19,7 @@ public class CustomDelimiterTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"//;n", "//[", "///;\\n", "//a\\\\n", "//\\n1"})
+    @ValueSource(strings = {"///;\\n", "//[\\\\n", "//////;\\n", "//ads\\n", "//\\n"})
     void 정해진_포맷이_아니라면_예외_발생(String headerOfCustomDelimiter) {
         assertThatThrownBy(() -> CustomDelimiter.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
