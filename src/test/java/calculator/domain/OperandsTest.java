@@ -16,7 +16,9 @@ public class OperandsTest {
 
         Operands operands = Operands.of(delimiter, expression);
 
-        assertThat(operands.getOperands()).containsExactly(1, 2, 3);
+        assertThat(operands.getOperands())
+                .extracting("value")
+                .containsExactly(1, 2, 3);
     }
 
     @Test
