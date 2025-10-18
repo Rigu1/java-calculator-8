@@ -19,12 +19,12 @@
   - [x] 피연산자들의 합계 계산하기
 
 ## 고민거리
-* Delimiters의 from에서 분기와 분기에 따른 객체 생성을 모두 담당하고 있다.
+* InputSplitter의 from에서 분기와 분기에 따른 객체 생성을 모두 담당하고 있다.
   - from에서는 입력 값에 따른 분기만을 담당할 수 있도록 메서드를 추출하자.
 
 
-* headerOfCustomDelimiter.substring과 같은 로직은 그 자체로 의미를 파악하기 힘들다.
-  - extractCustomDelimiterByHeader 메서드로 분리하여 의도를 드러내자.
+* inputText.substring(0, headerSuffixIndex + 2) 같은 구문은 그 자체로 의미를 파악하기 힘들다
+  - 메서드로 추출하여 의도를 들어내자.
 
 ## 실행 결과 예시
 

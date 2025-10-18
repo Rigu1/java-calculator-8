@@ -11,12 +11,19 @@ public class InputSplitter {
 
     public static InputSplitter from(String inputText) {
         if (inputText.startsWith("//")) {
-            int suffixIndex = inputText.indexOf("\\n");
-            validateSuffixIndex(suffixIndex);
-
-            return new InputSplitter(inputText.substring(0, suffixIndex + 2),  inputText.substring(suffixIndex + 2));
+            return InputSplitter.create(inputText);
         }
         return new InputSplitter(null, inputText);
+    }
+
+    private static InputSplitter create(String inputText) {
+        int headerSuffixIndex = inputText.indexOf("\\n");
+        validateSuffixIndex(headerSuffixIndex);
+
+        return new InputSplitter(
+                extractHeader(inputText, headerSuffixIndex),
+                extractExpression(inputText, headerSuffixIndex)
+        );
     }
 
     public String getHeader() {
@@ -25,6 +32,14 @@ public class InputSplitter {
 
     public String getExpression() {
         return expression;
+    }
+
+    private static String extractHeader(String inputText, int index) {
+        return inputText.substring(0, index + 2);
+    }
+
+    private static String extractExpression(String inputText, int index) {
+        return inputText.substring(index + 2);
     }
 
     private static void validateSuffixIndex(int suffixIndex) {
