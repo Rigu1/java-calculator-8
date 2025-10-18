@@ -19,15 +19,31 @@ public class DelimitersTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"///;\\n", "//[\\\\n", "//////;\\n", "//ads\\n", "//\\n"})
-    void 정해진_포맷이_아니라면_예외_발생(String headerOfCustomDelimiter) {
+    @ValueSource(strings = {"//,\\n", "//:\\n"})
+    void 기본_구분자와_중복된다면_예외_발생(String headerOfCustomDelimiter) {
         assertThatThrownBy(() -> Delimiters.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"//,\\n", "//:\\n"})
-    void 기본_구분자와_중복된다면_예외_발생(String headerOfCustomDelimiter) {
+    @ValueSource(strings = {"///;\\n", "//[\\\\n", "//////;\\n"})
+    void 정해진_포맷이_아니라면_예외_발생(String headerOfCustomDelimiter) {
+        assertThatThrownBy(() -> Delimiters.from(headerOfCustomDelimiter))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 구분자가_문자가_아니라면_예외_발생() {
+        String headerOfCustomDelimiter = "//ads\\n";
+
+        assertThatThrownBy(() -> Delimiters.from(headerOfCustomDelimiter))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void 구분자가_빈_문자열이라면_예외_발생() {
+        String headerOfCustomDelimiter = "//\\n";
+
         assertThatThrownBy(() -> Delimiters.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
