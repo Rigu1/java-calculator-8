@@ -17,4 +17,15 @@ public class CalculatorTest {
 
         assertThat(calculator.add()).isEqualTo(6L);
     }
+
+    @Test
+    void 빈_입력이_들어온_경우() {
+        List<String> delimiter = List.of(",", ":");
+        String expression = "" ;
+        Operands operands = Operands.of(delimiter, expression);
+
+        Calculator calculator = new Calculator(operands);
+
+        assertThat(calculator.add()).isEqualTo(0L);
+    }
 }
