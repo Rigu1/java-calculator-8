@@ -19,21 +19,8 @@
   - [x] 피연산자들의 합계 계산하기
 
 ## 고민거리
-* parseAndValidate는 메서드 이름만으로는 그 의미를 분명히 알기 어렵다.
-  - tryParseInt로 의도를 분명히 하자.
-
-
-* Operands에 너무 많은 책임을 준 것 같다.
-  - Operand에 대한 생성과 유효성 검사는 Operand에서 담당하게 하자.
-
-
-* String[] 자료형의 numbers는 로직 내에서 의미가 분명하게 들어나지 않는다.
-  - expressionElements로 expression의 요소라는 의미를 분명히 했다.
-
-
-* splitExpressionByDelimiter라는 메서드 명은 Operand의 리스트를 반환한다는 역할에 알맞지 못하다.
-  - parseOperands로 메서드명을 변경하여 Operand의 리스트를 반환한다는 역할을 분명히했다.
-  - expression.split(String.join("|", delimiter))는 메서드로 분리했다.
+* 의도를 알기 어려운 리터널 값(`\\n`, `2` 등)들이 있다.
+  - 상수로 추출하여 의도를 들어내자
 
 ## 실행 결과 예시
 

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Operands {
+    private static final String REGEX_DELIMITER = "|";
+
     List<Operand> operands;
 
     private Operands(List<Operand> operands) {
@@ -28,7 +30,7 @@ public class Operands {
     }
 
     private static String[] splitExpressionByDelimiter(List<String> delimiter, String expression) {
-        return expression.split(String.join("|", delimiter));
+        return expression.split(String.join(REGEX_DELIMITER, delimiter));
     }
 
 

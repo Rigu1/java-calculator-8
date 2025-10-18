@@ -1,6 +1,11 @@
 package calculator.domain;
 
 public class InputSplitter {
+    private static final String HEADER_PREFIX = "//";
+    private static final String HEADER_SUFFIX = "\\n";
+    private static final int HEADER_SUFFIX_LENGTH = 2;
+
+
     private final String header;
     private final String expression;
 
@@ -10,14 +15,14 @@ public class InputSplitter {
     }
 
     public static InputSplitter from(String inputText) {
-        if (inputText.startsWith("//")) {
+        if (inputText.startsWith(HEADER_PREFIX)) {
             return InputSplitter.create(inputText);
         }
         return new InputSplitter(null, inputText);
     }
 
     private static InputSplitter create(String inputText) {
-        int headerSuffixIndex = inputText.indexOf("\\n");
+        int headerSuffixIndex = inputText.indexOf(HEADER_SUFFIX);
         validateSuffixIndex(headerSuffixIndex);
 
         return new InputSplitter(
@@ -34,12 +39,12 @@ public class InputSplitter {
         return expression;
     }
 
-    private static String extractHeader(String inputText, int index) {
-        return inputText.substring(0, index + 2);
+    private static String extractHeader(String inputText, int headerSuffixIndex) {
+        return inputText.substring(0, headerSuffixIndex + HEADER_SUFFIX_LENGTH);
     }
 
-    private static String extractExpression(String inputText, int index) {
-        return inputText.substring(index + 2);
+    private static String extractExpression(String inputText, int headerSuffixIndex) {
+        return inputText.substring(headerSuffixIndex + HEADER_SUFFIX_LENGTH);
     }
 
     private static void validateSuffixIndex(int suffixIndex) {
