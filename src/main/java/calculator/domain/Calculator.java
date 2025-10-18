@@ -1,7 +1,5 @@
 package calculator.domain;
 
-import java.util.Arrays;
-
 public class Calculator {
     private final Operands operands;
 
