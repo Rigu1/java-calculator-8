@@ -7,28 +7,28 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-public class CustomDelimiterTest {
+public class DelimitersTest {
 
     @Test
     void 커스텀_구분자_추출하기() {
         String headerOfCustomDelimiter = "//;\\n";
 
-        CustomDelimiter customDelimiter = CustomDelimiter.from(headerOfCustomDelimiter);
+        Delimiters delimiters = Delimiters.from(headerOfCustomDelimiter);
 
-        assertThat(customDelimiter.getCustomDelimiter()).isEqualTo(";");
+        assertThat(delimiters.getDelimiters()).containsExactly(",", ":", ";");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"///;\\n", "//[\\\\n", "//////;\\n", "//ads\\n", "//\\n"})
     void 정해진_포맷이_아니라면_예외_발생(String headerOfCustomDelimiter) {
-        assertThatThrownBy(() -> CustomDelimiter.from(headerOfCustomDelimiter))
+        assertThatThrownBy(() -> Delimiters.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"//,\\n", "//:\\n"})
     void 기본_구분자와_중복된다면_예외_발생(String headerOfCustomDelimiter) {
-        assertThatThrownBy(() -> CustomDelimiter.from(headerOfCustomDelimiter))
+        assertThatThrownBy(() -> Delimiters.from(headerOfCustomDelimiter))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }
