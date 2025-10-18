@@ -11,16 +11,15 @@ public class Operands {
     }
 
     public static Operands of(List<String> delimiter, String expression) {
-        List<Operand> operands = splitExpressionByDelimiter(delimiter, expression);
-        return new Operands(operands);
+        return new Operands(parseOperands(delimiter, expression));
     }
 
-    private static List<Operand> splitExpressionByDelimiter(List<String> delimiter, String expression) {
-        String[] numbers = expression.split(String.join("|", delimiter));
+    private static List<Operand> parseOperands(List<String> delimiter, String expression) {
+        String[] expressionElements = splitExpressionByDelimiter(delimiter, expression);
 
-        return Arrays.stream(numbers)
-                .map(Operands::parseAndValidate)
-                .map(Operand::new)
+        return Arrays.stream(expressionElements)
+                .filter(element -> !element.isBlank())
+                .map(Operand::from)
                 .toList();
     }
 
@@ -28,11 +27,9 @@ public class Operands {
         return operands;
     }
 
-    private static int parseAndValidate(String value) {
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException();
-        }
+    private static String[] splitExpressionByDelimiter(List<String> delimiter, String expression) {
+        return expression.split(String.join("|", delimiter));
     }
+
+
 }

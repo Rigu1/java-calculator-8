@@ -19,12 +19,21 @@
   - [x] 피연산자들의 합계 계산하기
 
 ## 고민거리
-* InputSplitter의 from에서 분기와 분기에 따른 객체 생성을 모두 담당하고 있다.
-  - from에서는 입력 값에 따른 분기만을 담당할 수 있도록 메서드를 추출하자.
+* parseAndValidate는 메서드 이름만으로는 그 의미를 분명히 알기 어렵다.
+  - tryParseInt로 의도를 분명히 하자.
 
 
-* inputText.substring(0, headerSuffixIndex + 2) 같은 구문은 그 자체로 의미를 파악하기 힘들다
-  - 메서드로 추출하여 의도를 들어내자.
+* Operands에 너무 많은 책임을 준 것 같다.
+  - Operand에 대한 생성과 유효성 검사는 Operand에서 담당하게 하자.
+
+
+* String[] 자료형의 numbers는 로직 내에서 의미가 분명하게 들어나지 않는다.
+  - expressionElements로 expression의 요소라는 의미를 분명히 했다.
+
+
+* splitExpressionByDelimiter라는 메서드 명은 Operand의 리스트를 반환한다는 역할에 알맞지 못하다.
+  - parseOperands로 메서드명을 변경하여 Operand의 리스트를 반환한다는 역할을 분명히했다.
+  - expression.split(String.join("|", delimiter))는 메서드로 분리했다.
 
 ## 실행 결과 예시
 
