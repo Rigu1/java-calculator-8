@@ -1,6 +1,8 @@
 package calculator.domain;
 
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Delimiters {
@@ -33,7 +35,9 @@ public class Delimiters {
     }
 
     public String toRegex() {
-        return String.join("|", delimiters);
+        return delimiters.stream()
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
     }
 
     private static String extractCustomDelimiterByHeader(String headerOfCustomDelimiter) {

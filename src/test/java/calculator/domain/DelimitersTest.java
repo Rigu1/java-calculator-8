@@ -15,7 +15,7 @@ public class DelimitersTest {
 
         Delimiters delimiters = Delimiters.from(headerOfCustomDelimiter);
 
-        assertThat(delimiters.toRegex()).isEqualTo(",|:|;");
+        assertThat(delimiters.toRegex()).isEqualTo("\\Q,\\E|\\Q:\\E|\\Q;\\E"); // ",|:\;"
     }
 
     @ParameterizedTest

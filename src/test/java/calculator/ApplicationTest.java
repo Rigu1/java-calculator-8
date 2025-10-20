@@ -36,6 +36,15 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    @DisplayName("split() 사용 방식에 따른 커스텀 구분자로 대괄호 특수문자 사용 테스트")
+    void 대괄호_커스텀_구분자_사용() {
+        assertSimpleTest(() -> {
+            run("//[\\n1[2");
+            assertThat(output()).contains("결과 : 3");
+        });
+    }
+
     @ParameterizedTest
     @ValueSource(strings = {"//,n1,2", "//,1,2"})
     void 헤더_접미사_없는_경우_예외_테스트(String inputText) {
