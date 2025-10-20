@@ -21,7 +21,7 @@ public class CalculatorTest {
     @Test
     void 빈_입력이_들어온_경우() {
         List<String> delimiter = List.of(",", ":");
-        String expression = "" ;
+        String expression = "";
         Operands operands = Operands.of(delimiter, expression);
 
         Calculator calculator = new Calculator(operands);

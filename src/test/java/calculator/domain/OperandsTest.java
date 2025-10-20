@@ -21,12 +21,15 @@ public class OperandsTest {
     }
 
     @Test
-    void 빈_토큰_발생_시_예외() {
+    void 빈_토큰_입력() {
         List<String> delimiter = List.of(",", ":");
         String expression = "1,:3";
 
-        assertThatThrownBy(() -> Operands.of(delimiter, expression))
-                .isInstanceOf(IllegalArgumentException.class);
+        Operands operands = Operands.of(delimiter, expression);
+
+        assertThat(operands.getOperands())
+                .extracting("value")
+                .containsExactly(1, 3);
     }
 
     @Test
@@ -41,7 +44,7 @@ public class OperandsTest {
     @Test
     void 구분자를_제외한_문자_입력_시_예외_발생() {
         List<String> delimiter = List.of(",", ":");
-        String expression = "1,:3";
+        String expression = "1,;3";
 
         assertThatThrownBy(() -> Operands.of(delimiter, expression))
                 .isInstanceOf(IllegalArgumentException.class);
