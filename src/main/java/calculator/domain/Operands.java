@@ -12,12 +12,12 @@ public class Operands {
         this.operands = operands;
     }
 
-    public static Operands of(List<String> delimiter, String expression) {
-        return new Operands(parseOperands(delimiter, expression));
+    public static Operands of(String regexOfDelimiters, String expression) {
+        return new Operands(parseOperands(regexOfDelimiters, expression));
     }
 
-    private static List<Operand> parseOperands(List<String> delimiter, String expression) {
-        String[] expressionElements = splitExpressionByDelimiter(delimiter, expression);
+    private static List<Operand> parseOperands(String regexDelimiters, String expression) {
+        String[] expressionElements = splitExpressionByDelimiters(regexDelimiters, expression);
 
         return Arrays.stream(expressionElements)
                 .filter(element -> !element.isBlank())
@@ -29,9 +29,7 @@ public class Operands {
         return operands;
     }
 
-    private static String[] splitExpressionByDelimiter(List<String> delimiter, String expression) {
-        return expression.split(String.join(REGEX_DELIMITER, delimiter));
+    private static String[] splitExpressionByDelimiters(String delimiters, String expression) {
+        return expression.split(delimiters);
     }
-
-
 }

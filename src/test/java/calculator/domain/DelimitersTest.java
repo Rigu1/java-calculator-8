@@ -15,7 +15,7 @@ public class DelimitersTest {
 
         Delimiters delimiters = Delimiters.from(headerOfCustomDelimiter);
 
-        assertThat(delimiters.getDelimiters()).containsExactly(",", ":", ";");
+        assertThat(delimiters.toRegex()).isEqualTo(",|:|;");
     }
 
     @ParameterizedTest

@@ -32,8 +32,8 @@ public class Delimiters {
         return new Delimiters(Stream.concat(DEFAULT_DELIMITERS.stream(), Stream.of(customDelimiter)).toList());
     }
 
-    public List<String> getDelimiters() {
-        return this.delimiters;
+    public String toRegex() {
+        return String.join("|", delimiters);
     }
 
     private static String extractCustomDelimiterByHeader(String headerOfCustomDelimiter) {

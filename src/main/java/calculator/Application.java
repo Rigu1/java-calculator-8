@@ -11,7 +11,7 @@ public class Application {
     public static void main(String[] args) {
         InputSplitter inputSplitter = InputSplitter.from(InputView.readLine());
         Delimiters delimiters = Delimiters.from(inputSplitter.getHeader());
-        Operands operands = Operands.of(delimiters.getDelimiters(), inputSplitter.getExpression());
+        Operands operands = Operands.of(delimiters.toRegex(), inputSplitter.getExpression());
 
         Calculator calculator = new Calculator(operands);
 
